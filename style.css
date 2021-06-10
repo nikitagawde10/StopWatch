@@ -1,0 +1,23 @@
+.headerTitle h1{
+    color: rgb(0, 255, 42);
+    text-align: center;
+}
+
+.stopWatchDiv{
+    border: 2px solid rgb(84, 47, 121);
+    background-color: black;
+    width: 50%;
+    height: 50%;
+}
+
+.buttonsDiv{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.textBtn{
+    color: green;
+    background-color: yellow;
+    padding: 20px;
+    margin-right: 5%;
+}
