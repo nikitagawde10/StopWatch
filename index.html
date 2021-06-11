@@ -2,24 +2,26 @@
     <head>
         <title> Landing page</title>
         <link rel="stylesheet" href="style.css">
-        <script src="myscripts.js"></script>
     </head>
     <body>
         <div class="stopWatchDiv">
             <div class="headerTitle">
                 <h1>Stopwatch</h1>
             </div>
+            <div class="displayTimerDiv">
+                <p>00:00:00</p>
+            </div>
             <div class="buttonsDiv"> 
                 <div class="textBtn" onclick="startTimer()">Start</div>
-                <div class="textBtn" onclick="stopTimer()"> Stop</div>
+                <!-- <div class="textBtn" onclick="stopTimer()"> Stop</div> -->
                 <div class="textBtn" onclick="resetTimer()">Reset</div>
-            <ul>
-                <li>Beep Beep</li>
-                <li>Boop Boop</li>
-            </ul>
-            </div>
-            
+            </div>   
         </div>
-        
+        <script>
+            function myFunction() {
+              document.getElementById("demo").innerHTML = "Paragraph changed.";
+            }
+            console.log('Testing function');
+            </script>
     </body>
 </html>
