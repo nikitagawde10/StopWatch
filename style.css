@@ -1,34 +1,76 @@
-.headerTitle h1{
+.headerTitle h1 {
     color: rgb(0, 255, 42);
     font-family: monospace;
     text-align: center;
 }
 
-.stopWatchDiv{
-    border: 2px solid rgb(84, 47, 121);
+.stopWatchDiv {
     background-color: black;
-    width: 50%;
-    height: 50%;
+    width: 600px;
+    height: 600px;
 }
 
-.buttonsDiv{
+.buttonsDiv {
     display: flex;
     justify-content: space-evenly;
 }
 
-.textBtn{
+.textBtn {
     color: white;
+    font-size: 25px;
     background-color: black;
-    border-radius: 50%;
     margin-right: 5%;
-    height: 5%;
-    width: 4%;
-    padding: 3%;
     border: 1px solid gray;
 }
-.displayTimerDiv{
+
+#displayTimerDiv {
     color: white;
     text-align: center;
     margin-bottom: 5%;
-    font-size: 55px;
+    font-size: 25px;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: green;
+}
+
+#displayLapDiv {
+    color: white;
+    width: 100%;
+    margin-top: 4%;
+    text-align: center;
+    font-size: 15px;
+
+}
+
+.laps {
+    color: white;
+    list-style: none;
+    font-size: 15px;
+    width: 100%;
+    margin-top: 5%;
+    overflow-y: auto;
+    position: relative;
+    height: 250px;
+}
+
+.lap-item {
+    width: 250px;
+    text-align: center;
+    display: inline-block;
+    padding: 15px;
+    border: 1px solid grey;
+    border-radius: 50px;
+    margin: 4px;
+}
+
+.number {
+    color: white;
+}
+
+.timeStamp {
+    display: inline-block;
+    margin-left: 25px;
+
 }

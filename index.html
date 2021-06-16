@@ -1,27 +1,30 @@
 <html>
-    <head>
-        <title> Landing page</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="stopWatchDiv">
-            <div class="headerTitle">
-                <h1>Stopwatch</h1>
-            </div>
-            <div class="displayTimerDiv">
-                <p>00:00:00</p>
-            </div>
-            <div class="buttonsDiv"> 
-                <div class="textBtn" onclick="startTimer()">Start</div>
-                <!-- <div class="textBtn" onclick="stopTimer()"> Stop</div> -->
-                <div class="textBtn" onclick="resetTimer()">Reset</div>
-            </div>   
+
+<head>
+    <title> Landing page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="stopWatchDiv">
+        <div class="headerTitle">
+            <h1>Stopwatch</h1>
         </div>
-        <script>
-            function myFunction() {
-              document.getElementById("demo").innerHTML = "Paragraph changed.";
-            }
-            console.log('Testing function');
-            </script>
-    </body>
+        <div id="displayTimerDiv">
+            00 : 00 : 00
+        </div>
+        <div class="buttonsDiv">
+            <button class="textBtn" id="playButton" onclick="startTimer()">Start</button>
+            <button class="textBtn" id="lapButton">Lap</button>
+            <button class="textBtn" id="stopButton" onclick="stopTimer()"> Pause</button>
+            <button class="textBtn" id="resetButton" onclick="resetTimer()">Reset</button>
+        </div>
+        <div id="displayLapDiv">
+            <ul class="laps">
+            </ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
 </html>
