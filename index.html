@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title> Landing page</title>
+    <title> Stopwatch 1.1</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -10,21 +10,28 @@
         <div class="headerTitle">
             <h1>Stopwatch</h1>
         </div>
-        <div id="displayTimerDiv">
+        <div id="displayTimerDiv" style="
+    text-align: center;
+    font-size: 40px;
+    height: 50px;
+    color: white;
+    margin-bottom: 3%;
+">
+        <!-- <div id="displayTimerDiv"> -->
             00 : 00 : 00
         </div>
         <div class="buttonsDiv">
-            <button class="textBtn" id="playButton" onclick="startTimer()">Start</button>
-            <button class="textBtn" id="lapButton">Lap</button>
-            <button class="textBtn" id="stopButton" onclick="stopTimer()"> Pause</button>
-            <button class="textBtn" id="resetButton" onclick="resetTimer()">Reset</button>
+            <button class="textBtn" id="startButton">Start</button>
+            <!-- <button class="textBtn" id="lapButton">Lap</button> -->
+            <button class="textBtn" id="pauseButton"> Pause</button>
+            <button class="textBtn" id="resetButton">Reset</button>
         </div>
         <div id="displayLapDiv">
             <ul class="laps">
             </ul>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>
