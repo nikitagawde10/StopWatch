@@ -1,5 +1,5 @@
 import getFormattedTime from './timeCalculator.js';
-import {resetTimerClicked, startTimerFunction} from './timerFunctions.js';
+import {resetTimerClicked, startTimerFunction, pauseTimer} from './timerFunctions.js';
 import lapTimerFunction from './lapCounter.js';
 let passedTime = 0;
 let timerInterval;
@@ -17,8 +17,8 @@ function print(text) {
 
 startStopButton.onclick = () => {
     if (!runningStatus) { //false condition click on start
-        startTimerClicked(); //handle button text
-        startStopstatus = "start"
+        startStopButton.innerHTML //CHANGE BTN TEXT
+        // startStopstatus = "start" dont need
         runningStatus = true;
         startTimerFunction();
     } else {
