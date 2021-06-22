@@ -27,10 +27,10 @@
 }
 
 .textBtn {
-    border-radius: 20%;
     border-color: gray;
     padding: 5%;
     font-family: monospace;
+    border-radius: 60%;
 }
 
 button:hover {
