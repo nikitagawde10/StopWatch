@@ -1,4 +1,8 @@
 import getFormattedTime from "./timeCalculator.js";
+import printText from './timerFunctions.js';
+let lapArray = [];
+let numOfLaps = 0;
+const laps = document.getElementsByClassName("laps")[0];
 
 export default function lapTimerFunction(lapTimeStampWhenLapButtonClicked, startButtonClickedTime) {
     console.log('Testing function lap');
@@ -6,8 +10,8 @@ export default function lapTimerFunction(lapTimeStampWhenLapButtonClicked, start
     let minimumLapTime = Number.MAX_VALUE;
     let maximumLapTime = Number.MIN_VALUE;
 
-    console.log("Stopwatch start time is " + getFormattedTime(lapTimeStampWhenLapButtonClicked));
-    print(getFormattedTime(lapTimeStampWhenLapButtonClicked));
+    console.log("Stopwatch start time is " + getFormattedTime(startButtonClickedTime));
+    // printText(getFormattedTime(lapTimeStampWhenLapButtonClicked));
 
     const li = document.createElement("li");
     const number = document.createElement("span");

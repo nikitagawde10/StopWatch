@@ -24,18 +24,16 @@
 .buttonsDiv {
     display: flex;
     justify-content: space-evenly;
+    height: 15%;
 }
 
 .textBtn {
-    border-color: gray;
-    padding: 5%;
-    font-family: monospace;
-    border-radius: 60%;
+    width: 21%;
 }
 
 button:hover {
     cursor: pointer;
-    background-color: green;
+    background-color: grey;
 }
 
 #displayLapDiv {
@@ -81,3 +79,30 @@ button:hover {
     margin: 5px;
 
 }
+#startStopButton{
+    background-color: #04AA6D; /* Green */
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+#lapResetButton{
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
