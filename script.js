@@ -16,6 +16,7 @@ startStopButton.onclick = () => {
         lapResetButton.innerHTML = "Lap"
         runningStatus = "started";
         startTimerFunction();
+        //start the timer
     } else {
         startStopButton.innerHTML = "Start"
         lapResetButton.innerHTML = "Reset"
@@ -23,20 +24,10 @@ startStopButton.onclick = () => {
         runningStatus = "stopped";
          // pause the timer 
     }
-    // timerInterval = setInterval(function printTime() {
-    //     passedTime = Date.now() - startTime;
-    //     print(getFormattedTime(passedTime));
-    // }, 100);
-    // showStartPauseButton("PAUSE");
-    // showResetLapButton("LAP");
-}
-
-
 
 lapResetButton.onclick = () => {
-    let lapTimeStampWhenLapButtonClicked = Date.now();
-    console.log("this is lap time stamp when lap is clicked " + getFormattedTime(lapTimeStampWhenLapButtonClicked));
-    if (!runningStatus) { //true condition 
+    // let lapTimeStampWhenLapButtonClicked = Date.now();
+    if (!runningStatus == "started") { //true condition 
         let lapTimeStampWhenLapButtonClicked = Date.now();
         lapResetButton.innerHTML = "Lap";
         startStopButton.innerHTML = "Stop";
@@ -44,24 +35,12 @@ lapResetButton.onclick = () => {
         runningStatus = true;
         // console.log("After clicking lap button the running status is " + runningStatus);
 
-    } else if (runningStatus) {
+    } else if (runningStatus == "stopped") {
         lapResetButton.innerHTML = "Reset";
+        startStopButton.innerHTML = "Start";
         resetTimerClicked();
     }
 }
-
-export function resetTimerClicked() {
-    clearInterval(timerInterval);
-    printText("00 : 00 : 00");
-    passedTime = 0;
-    // numOfLaps = 0;
-    laps.innerHTML = '';
-    runningStatus = false;
-    // laps.append(resetButton);
-    // showStartPauseButton("Start");
-    // showLapResetButton("Reset");
-}
-
 export function startTimerFunction() {
     let startButtonClickedTime = Date.now();
     // passedTime = Date.now() - startButtonClickedTime;
@@ -86,4 +65,16 @@ export function pauseTimer() {
      elapsedTime = Date.now();
     console.log("This is elapsed time " + (elapsedTime));
     // showStartPauseButton("PLAY");
+}
+export function resetTimerClicked() {
+    clearInterval(timerInterval);
+    printText("00 : 00 : 00");
+    passedTime = 0;
+    // numOfLaps = 0;
+    laps.innerHTML = '';
+    runningStatus = false;
+    // laps.append(resetButton);
+    // showStartPauseButton("Start");
+    // showLapResetButton("Reset");
+}
 }
