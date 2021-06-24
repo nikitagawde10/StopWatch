@@ -21,7 +21,6 @@ export default function lapTimerFunction(lapTimeStampWhenLapButtonClicked, start
         // let startButtonClickedTime = startButtonClickedTime;
         // console.log("Stopwatch start time is " + getFormattedTime(startTime));
         let currentLapTime = getFormattedTime((lapTimeStampWhenLapButtonClicked - startButtonClickedTime));
-        
         if (!lapArray.length) { //condition for first lap
             timeStamp.innerHTML = getFormattedTime(currentLapTime);
         } else {

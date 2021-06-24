@@ -1,26 +1,21 @@
-body{
-    background-color: black;
+* {
+    box-sizing: border-box;
 }
-@font-face {
-    font-family: system;
-    font-style: normal;
-    font-weight: 300;
-    src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
-  }
-  
-  /* Now, let's apply it on an element */
-  body {
-    font-family: "system";
-  }
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #0F0F0F;
+}
 
 .stopWatchDiv {
-    background-color: black;
-    height: 600px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    margin: 60px auto 0;
     width: 300px;
-    margin-top: 2%;
-    margin-left: 40%;
-    border: 2px solid rgb(29, 26, 26);
-
+    height: 600px;
+    text-align: center;
+    border: 2px solid gray;
 }
 
 .displayTimerDiv {
@@ -33,12 +28,26 @@ body{
 
 .buttonsDiv {
     display: flex;
-    justify-content: space-evenly;
-    height: 15%;
+    justify-content: space-between;    
+    height: 100px;
+    /* border: 2px solid gray; */
 }
 
 .textBtn {
-    width: 30%;
+    cursor: pointer;
+    font-size: 16px;
+    border: 2px solid #353535;
+    background-color: #353535;
+    box-shadow: inset 0 0 0 2px #0F0F0F;
+    color: #ccc;
+    width: 80px;
+    height: fit-content;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 76px;
+    position: relative;
+    top: 0;
+    left: 0;
 }
 
 button:hover {
@@ -46,24 +55,37 @@ button:hover {
     background-color: grey;
 }
 
+#startStopButton {
+    background-color: #182E1C;
+    border-color: #182E1C;
+    color: #42CC57;
+    margin-right: 10px
+}
+#startStopButton :checked{
+    background-color: #351614;
+    border-color: #351614;
+    color: #FF352C;
+}
+
+#lapResetButton {
+    margin-left: 10px
+}
+
 #displayLapDiv {
     color: white;
-    margin-top: 4%;
     text-align: center;
     font-size: 15px;
-    /* border: 2px solid red; */
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 320px;
 }
 
 .laps {
-    color: white;
     list-style: none;
-    font-size: 15px;
-    margin-top: 5%;
-    overflow-y: auto;
-    position: relative;
-    height: 40%;
-    /* border: 1px solid gray; */
-    padding: unset;
+    margin: 0;
+    padding-left: 0;
+    border-top: 1px solid #333;
+    font-size: 16px;
 }
 
 .lap-item {
@@ -77,10 +99,12 @@ button:hover {
 }
 
 .li-item {
-    font-size: 15px;
-    display: flex;
-    border-bottom: 1px solid gray;
-    justify-content: space-evenly;
+    color: #666;
+    text-align: right;
+    position: relative;
+    border-bottom: 1px solid #333;
+    padding-top: 1em;
+    height: 3em;
 }
 
 .number {
@@ -97,47 +121,4 @@ button:hover {
     border-radius: 5px;
     margin: 5px;
 
-}
-
-#startStopButton {
-    background-color: rgb(19, 49, 19);
-    /* Green */
-    color: green;
-    text-shadow:
-
-        /* 0 0 10px #fff, */
-        /* 0 0 21px #fff, */
-        0 0 42px #0fa,
-        0 0 82px #0fa,
-        0 0 92px #0fa,
-        0 0 102px #0fa,
-        0 0 151px #0fa;
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 50%;
-    /* box-shadow: 2px 0px 0px 7px #2564DB,  */
-/* 2px 0px 0px 13px rgba(25, 21, 23, 0.80); */
-}
-
-#lapResetButton {
-    background-color: rgba(29, 26, 26, 0.637);
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 50%;
-    
-    box-shadow: inset 0 -1px 1px rgba(0,0,0,1.5), /*bottom internal shadow*/ inset 0 0px 4px rgba(255,255,255,0.8), /*top internal highlight*/ 0 0 1px black;
 }
