@@ -55,6 +55,32 @@ button:hover {
     background-color: grey;
 }
 
+.green{
+    background-color: #182E1C;
+    border-color: #182E1C;
+    color: #42CC57;
+}
+
+.red{
+    background-color: #351614;
+    border-color: #351614;
+    color: #FF352C;
+}
+
+.disabled{
+    color: #98989f;
+    background-color: #1c1c1d;
+    box-shadow: 0 0 1px 1.5px #1c1c1d;
+}
+
+.shortestLap{
+    color: #2ed158;
+}
+
+.longestLap{
+    color: #ff453a;
+}
+
 #startStopButton {
     background-color: #182E1C;
     border-color: #182E1C;
@@ -86,6 +112,7 @@ button:hover {
     padding-left: 0;
     border-top: 1px solid #333;
     font-size: 16px;
+    overflow-y: auto;
 }
 
 .lap-item {
