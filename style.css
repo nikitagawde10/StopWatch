@@ -1,3 +1,11 @@
+:root{
+     --greenColor : #182E1C;
+    --redColor : #351614;
+    --buttonMargin : 10px;
+    --lapBorderColor : #333;
+    --textAlignVar : center;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -5,32 +13,22 @@
 body {
     padding: 0;
     margin: 0;
-    /* background-color: #0F0F0F; */
 }
 
 .stopWatchDiv {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 300;
     margin: 60px auto 0;
     width: 300px;
     height: 600px;
-    text-align: center;
-    border-bottom: 1px solid #333;
+    text-align: var(--textAlignVar);
     background-color: black;
 }
 
-.displayTimerDiv {
-    color: white;
-    text-align: center;
-    font-size: 40px;
-    margin-bottom: 6%;
-    height: 200px;
-}
 
 .buttonsDiv {
     display: flex;
-    justify-content: space-between;    
-    height: 100px;
+    justify-content: space-between;
+    height: 90px;
     /* border: 2px solid gray; */
 }
 
@@ -44,7 +42,7 @@ body {
     width: 80px;
     height: fit-content;
     border-radius: 100%;
-    text-align: center;
+    text-align: var(--textAlignVar);
     line-height: 76px;
     position: relative;
     top: 0;
@@ -53,82 +51,75 @@ body {
 
 button:hover {
     cursor: pointer;
-    background-color: grey;
+    
 }
 
-.green{
-    background-color: #182E1C;
-    border-color: #182E1C;
+.green {
+    background-color: var(--greenColor);
+    border-color: var(--greenColor);
     color: #42CC57;
 }
 
-.red{
-    background-color: #351614;
-    border-color: #351614;
+.red {
+    background-color: var(--redColor);
+    border-color: var(--redColor);
     color: #FF352C;
 }
 
-.disabled{
-    color: #98989f;
-    background-color: #1c1c1d;
-    box-shadow: 0 0 1px 1.5px #1c1c1d;
-}
-
-.minLap{
+.minLap {
     color: #2ed158;
 }
 
-.maxLap{
+.maxLap {
     color: #ff453a;
 }
 
 #startStopButton {
-    background-color: #182E1C;
-    border-color: #182E1C;
-    color: #42CC57;
-    margin-right: 10px
+    margin-right: var(--buttonMargin);
 }
 
 #lapResetButton {
-    margin-left: 10px
+    margin-left: var(--buttonMargin);
 }
 
 #displayLapDiv {
     color: white;
-    text-align: center;
+    text-align: var(--textAlignVar);
     font-size: 15px;
     /* border: 1px solid red; */
     width: 100%;
-    height: 320px;
+    height: 300px;
 }
 
 .laps {
     list-style: none;
     margin: 0;
     padding-left: 0;
-    border-top: 1px solid #333;
+    border-top: 1px solid var(--lapBorderColor);
     font-size: 16px;
     overflow-y: auto;
     height: -webkit-fill-available;
 }
 
-.lap-item {
+.lapItem {
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--lapBorderColor);
     margin: 4px;
     display: flex;
     justify-content: space-between;
 }
-.lap-item p{
+
+.lapItem p {
     margin-left: 5px;
     margin-right: 15px;
 }
+
 .li-item {
     color: #666;
     text-align: right;
     position: relative;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--lapBorderColor);;
     padding-top: 1em;
     height: 3em;
 }
@@ -147,4 +138,21 @@ button:hover {
     border-radius: 5px;
     margin: 5px;
 
+}
+
+.displayTimerDiv {
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    height: 150px;
+    width: 200px;
+    /* border: 2px solid red; */
+    position: relative;
+}
+h1{
+    text-align: center;
+    font-size: 50px;
+}
+.disabled{
+    background-color: rgba(128, 128, 128, 0.171);
 }
