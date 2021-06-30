@@ -1,5 +1,5 @@
 import getFormattedTime from './timeCalculator.js';
-import laps from './lapCounter.js';
+// import laps from './lapCounter.js';
 let startStopButton = document.getElementById("startStopButton");
 let lapResetButton = document.getElementById("lapResetButton");
 let lapsContainer = document.getElementsByClassName("laps")[0];
@@ -22,7 +22,6 @@ let LapsObject = {
     max: undefined,
     lastLapTimeStamp: undefined //store previous lap 
 }
-
 
 start_button.classList.add("green");
 lapResetButton.classList.add("disabled");
@@ -52,11 +51,87 @@ startStopButton.onclick = () => {
 };
 
 lapResetButton.onclick = function () {
-    if (newSession != true) {
-        console.log("lap button clicked")
+    console.log("lap button clicked")
+    if (newSession == true && runningStatus == true) {
         laps();
     } else if (runningStatus == false) {
         resetTimer();
+    }
+}
+
+function laps() {
+    console.log("Entered lap div");
+    let lapList = document.createElement('li');
+    let lapNumber = document.createElement('p');
+    let lapTime = document.createElement('p');
+
+    lapsContainer.prepend(lapList);
+
+    let prevLapObject = {
+        ...LapsObject
+    };
+
+    lapList.classList.add('lapItem');
+    lapList.append(lapNumber);
+    lapList.append(lapTime);
+
+    let currentLapTimeStamp = Date.now();
+    lapNumber.innerHTML = `Lap ${LapsObject.numOfLaps + 1}`;
+    lapList.id = LapsObject.numOfLaps + 1;
+    console.log("This is lap list item id " + lapList.id)
+    if (LapsObject.numOfLaps === 0) {
+        let lapDuration = currentLapTimeStamp - startButtonClickedTime;
+        LapsObject.numOfLaps += 1;
+        lapTime.innerHTML = getFormattedTime(lapDuration);
+        LapsObject.max = LapsObject.min = {
+            specialCaseIndex: LapsObject.numOfLaps,
+            duration: lapDuration
+        };
+        LapsObject.lastLapTimeStamp = currentLapTimeStamp;
+        console.log("This is lap list current time " + LapsObject.lastLapTimeStamp)
+        return;
+    }
+
+    let lapDuration = currentLapTimeStamp - LapsObject.lastLapTimeStamp;
+    console.log("This is lap duration " + lapDuration)
+    let lapType = "";
+    LapsObject.numOfLaps += 1;
+
+    if (startButtonClickedTime > LapsObject.lastLapTimeStamp) {
+        lapDuration -= (startButtonClickedTime - stopButtonClickedTime);
+    }
+    LapsObject.lastLapTimeStamp = currentLapTimeStamp;
+    lapTime.innerHTML = getFormattedTime(lapDuration);
+
+    if (lapDuration < LapsObject.min.duration) {
+        LapsObject.min = {
+            specialCaseIndex: LapsObject.numOfLaps,
+            duration: lapDuration
+        };
+        lapType = "minLap";
+    } else if (lapDuration > LapsObject.max.duration) {
+        LapsObject.max = {
+            specialCaseIndex: LapsObject.numOfLaps,
+            duration: lapDuration
+        };
+        lapType = "maxLap";
+    }
+    //only 2 laps in the list
+    if (LapsObject.numOfLaps === 2) {
+        lapsContainer.children[LapsObject.numOfLaps - LapsObject.min.specialCaseIndex].classList.add("minLap");
+        lapsContainer.children[LapsObject.numOfLaps - LapsObject.max.specialCaseIndex].classList.add("maxLap");
+        return;
+    }
+
+    //chaging color for minLap and maxLap - add css class minlap and maxLap
+    if (lapType !== "") {
+        if (lapType === "minLap") {
+            lapsContainer.children[LapsObject.numOfLaps - prevLapObject.min.specialCaseIndex].classList.remove(lapType);
+            lapsContainer.children[LapsObject.numOfLaps - LapsObject.min.specialCaseIndex].classList.add(lapType);
+        } else {
+            lapsContainer.children[LapsObject.numOfLaps - prevLapObject.max.specialCaseIndex].classList.remove(lapType);
+            lapsContainer.children[LapsObject.numOfLaps - LapsObject.max.specialCaseIndex].classList.add(lapType);
+        }
     }
 }
 
@@ -96,8 +171,6 @@ function getTime() {
 
 }
 
-
-
 function resetLapObject() {
     LapsObject.numOfLaps = 0;
     LapsObject.min = undefined;
@@ -105,19 +178,14 @@ function resetLapObject() {
     LapsObject.lastLapTimeStamp = undefined;
 }
 
-
 function changeButtonTextToStop() {
     startStopButton.innerHTML = STOP_TEXT;
     lapResetButton.innerHTML = LAP_TEXT;
     start_button.classList.replace("green", "red");
-    if (lapResetButton.disabled) {
-        lapResetButton.disabled = false;
-        if (lapResetButton.classList.contains("disabled")) {
-            lapResetButton.classList.remove("disabled");
-        }
+    if (lapResetButton.classList.contains("disabled")) {
+        lapResetButton.classList.remove("disabled");
     }
 }
-
 
 function changeButtonTextToStart() {
     startStopButton.innerHTML = START_TEXT;
