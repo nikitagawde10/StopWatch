@@ -4,6 +4,8 @@
     --buttonMargin : 10px;
     --lapBorderColor : #333;
     --textAlignVar : center;
+    --minLapColor : #42CC57;
+    --maxLapColor : #FF352C;
 }
 
 * {
@@ -57,21 +59,21 @@ button:hover {
 .green {
     background-color: var(--greenColor);
     border-color: var(--greenColor);
-    color: #42CC57;
+    color:var(--minLapColor);
 }
 
 .red {
     background-color: var(--redColor);
     border-color: var(--redColor);
-    color: #FF352C;
+    color:var(--maxLapColor);
 }
 
 .minLap {
-    color: #2ed158;
+    color: var(--minLapColor);
 }
 
 .maxLap {
-    color: #ff453a;
+    color: var(--maxLapColor);
 }
 
 #startStopButton {

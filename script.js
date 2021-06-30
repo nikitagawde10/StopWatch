@@ -1,5 +1,6 @@
 import getFormattedTime from './timeCalculator.js';
 // import laps from './lapCounter.js';
+// import {changeButtonTextToStart , changeButtonTextToLap} from './timerFunctions.js'
 let startStopButton = document.getElementById("startStopButton");
 let lapResetButton = document.getElementById("lapResetButton");
 let lapsContainer = document.getElementsByClassName("laps")[0];
@@ -14,7 +15,7 @@ const START_TEXT = "Start";
 const RESET_TEXT = "Reset";
 const STOP_TEXT = "Stop";
 const LAP_TEXT = "Lap";
-let newSession = false;
+let sessionStatus = false;
 
 let LapsObject = {
     numOfLaps: 0,
@@ -23,57 +24,87 @@ let LapsObject = {
     lastLapTimeStamp: undefined //store previous lap 
 }
 
+// LapsObject = {
+//     numOfLaps : 0,
+//     min = {
+//         specialCaseIndex : 0,
+//         duration : lapDuration
+//     }
+//     max = {
+//         specialCaseIndex : 0,
+//         duration : lapDuration
+//     }
+//     lastLapTimeStamp : lapDuration
+// }
+
 start_button.classList.add("green");
+lapResetButton.disabled = true;
 lapResetButton.classList.add("disabled");
+
 
 startStopButton.onclick = () => {
     if (!runningStatus) {
-        newSession = true;
+        sessionStatus = true;
         runningStatus = true;
         changeButtonTextToStop();
+        lapResetButton.disabled = false;
         lapResetButton.classList.remove("disabled");
         startButtonClickedTime = Date.now();
-        console.log("this is start button clicked time when clicked on startButton " + startButtonClickedTime);
+        // console.log("this is start button clicked time when clicked on startButton " + startButtonClickedTime);
         startTimerLoop();
-        console.log("the running status when clicked on start is " + runningStatus);
-        console.log("the session status when clicked on start is " + newSession);
+        // console.log("the running status when clicked on start is " + runningStatus);
+        // console.log("the session status when clicked on start is " + sessionStatus);
     } else {
         changeButtonTextToStart();
         stopButtonClickedTime = Date.now()
-        console.log("this is stop button clicked time when clicked on stopButton " + stopButtonClickedTime);
+        // console.log("this is stop button clicked time when clicked on stopButton " + stopButtonClickedTime);
         totalTime += getDriftTimeSinceLastStart(stopButtonClickedTime);
-        console.log("this is total time button clicked time when clicked on stopButton " + totalTime);
+        // console.log("this is total time button clicked time when clicked on stopButton " + totalTime);
         runningStatus = false;
-        newSession = true;
-        console.log("the running status when clicked on stop is " + runningStatus);
-        console.log("the session status when clicked on stop is " + newSession);
+        sessionStatus = true;
+        // console.log("the running status when clicked on stop is " + runningStatus);
+        // console.log("the session status when clicked on stop is " + sessionStatus);
     }
 };
 
 lapResetButton.onclick = function () {
     console.log("lap button clicked")
-    if (newSession == true && runningStatus == true) {
+    if (sessionStatus == true && runningStatus == true) {
         laps();
     } else if (runningStatus == false) {
         resetTimer();
     }
 }
 
+
+// function createLapObject(){
+//     let lapList = document.createElement('li');
+//     let lapNumber = document.createElement('p');
+//     let lapTime = document.createElement('p');
+
+//     lapsContainer.prepend(lapList);
+
+//     lapList.classList.add('lapItem');
+//     lapList.append(lapNumber);
+//     lapList.append(lapTime);
+// }
+
+
 function laps() {
     console.log("Entered lap div");
+    // LapsObject = createLapObject();
     let lapList = document.createElement('li');
     let lapNumber = document.createElement('p');
     let lapTime = document.createElement('p');
 
     lapsContainer.prepend(lapList);
+    lapList.classList.add('lapItem');
+    lapList.append(lapNumber);
+    lapList.append(lapTime);
 
     let prevLapObject = {
         ...LapsObject
     };
-
-    lapList.classList.add('lapItem');
-    lapList.append(lapNumber);
-    lapList.append(lapTime);
 
     let currentLapTimeStamp = Date.now();
     lapNumber.innerHTML = `Lap ${LapsObject.numOfLaps + 1}`;
@@ -145,6 +176,8 @@ function resetTimer() {
     resetLapObject();
     changeButtonTextToLap();
     changeButtonTextToStart();
+    lapResetButton.disabled = true;
+    lapResetButton.classList.add("disabled")
 }
 
 function getDriftTimeSinceLastStart(currentTime = Date.now()) { //calculate time difference
@@ -161,7 +194,7 @@ let startTimerLoop = () => {
 }
 
 function getTime() {
-    if (!startButtonClickedTime) {
+    if (startButtonClickedTime == 0) {
         return 0;
     }
     if (runningStatus) {
