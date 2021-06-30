@@ -136,7 +136,7 @@ function laps() {
 }
 
 function resetTimer() {
-    displayTimerDiv.textContent = "00 : 00 . 00";
+    displayTimerDiv.innerHTML = "00 : 00 . 00";
     startButtonClickedTime = 0;
     runningStatus = false;
     totalTime = 0;
