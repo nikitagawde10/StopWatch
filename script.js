@@ -4,7 +4,7 @@ import getFormattedTime from './timeCalculator.js';
 const startStopButton = document.getElementById('startStopButton');
 const lapResetButton = document.getElementById('lapResetButton');
 const lapsContainer = document.getElementsByClassName('laps')[0];
-const start_button = document.getElementsByClassName('startbutton')[0];
+const primaryButton = document.getElementsByClassName('startbutton')[0];
 const displayTimerDiv = document.getElementById('displayTimerDiv');
 let isRunning = false;
 let totalTime = 0;
@@ -53,7 +53,7 @@ lapResetButton.onclick = () => {
 function changeButtonTextToStop() {
   startStopButton.innerHTML = STOP_TEXT;
   lapResetButton.innerHTML = LAP_TEXT;
-  start_button.classList.replace('green', 'red');
+  primaryButton.classList.replace('green', 'red');
   if (lapResetButton.classList.contains('disabled')) {
     lapResetButton.classList.remove('disabled');
   }
@@ -62,7 +62,7 @@ function changeButtonTextToStop() {
 function changeButtonTextToStart() {
   startStopButton.innerHTML = START_TEXT;
   lapResetButton.innerHTML = RESET_TEXT;
-  start_button.classList.replace('red', 'green');
+  primaryButton.classList.replace('red', 'green');
 }
 
 function changeButtonTextToLap() {
@@ -93,12 +93,11 @@ const startTimerLoop = () => {
   displayTimerDiv.innerHTML = getFormattedTime((getTime()));
 };
 
-start_button.classList.add('green');
+primaryButton.classList.add('green');
 lapResetButton.disabled = true;
 lapResetButton.classList.add('disabled');
 
 function laps() {
-  console.log("Entered lap div");
   let lapList = document.createElement('li');
   let lapNumber = document.createElement('span');
   let lapTime = document.createElement('span');
@@ -118,22 +117,19 @@ function laps() {
   let currentLapTimeStamp = Date.now();
   lapNumber.innerHTML = `Lap ${LapState.numOfLaps + 1}`;
   lapList.id = LapState.numOfLaps + 1;
-  console.log("This is lap list item id " + lapList.id)
   if (LapState.numOfLaps === 0) {
       let lapDuration = currentLapTimeStamp - startButtonClickedTime;
       LapState.numOfLaps += 1;
       lapTime.innerHTML = getFormattedTime(lapDuration);
       LapState.max = LapState.min = {
-          specialCaseIndex: LapState.numOfLaps,
+          index: LapState.numOfLaps,
           duration: lapDuration
       };
       LapState.lastLapTimeStamp = currentLapTimeStamp;
-      console.log("This is lap list current time " + LapState.lastLapTimeStamp)
       return;
   }
 
   let lapDuration = currentLapTimeStamp - LapState.lastLapTimeStamp;
-  console.log("This is lap duration " + lapDuration)
   let lapType = "";
   LapState.numOfLaps += 1;
 
@@ -145,32 +141,32 @@ function laps() {
 
   if (lapDuration < LapState.min.duration) {
       LapState.min = {
-          specialCaseIndex: LapState.numOfLaps,
+          index: LapState.numOfLaps,
           duration: lapDuration
       };
       lapType = "minLap";
   } else if (lapDuration > LapState.max.duration) {
       LapState.max = {
-          specialCaseIndex: LapState.numOfLaps,
+          index: LapState.numOfLaps,
           duration: lapDuration
       };
       lapType = "maxLap";
   }
   //only 2 laps in the list
   if (LapState.numOfLaps === 2) {
-      lapsContainer.children[LapState.numOfLaps - LapState.min.specialCaseIndex].classList.add("minLap");
-      lapsContainer.children[LapState.numOfLaps - LapState.max.specialCaseIndex].classList.add("maxLap");
+      lapsContainer.children[LapState.numOfLaps - LapState.min.index].classList.add("minLap");
+      lapsContainer.children[LapState.numOfLaps - LapState.max.index].classList.add("maxLap");
       return;
   }
 
   //changing color for minLap and maxLap - add css class minlap and maxLap
   if (lapType !== "") {
       if (lapType === "minLap") {
-          lapsContainer.children[LapState.numOfLaps - prevLapState.min.specialCaseIndex].classList.remove(lapType);
-          lapsContainer.children[LapState.numOfLaps - LapState.min.specialCaseIndex].classList.add(lapType);
+          lapsContainer.children[LapState.numOfLaps - prevLapState.min.index].classList.remove(lapType);
+          lapsContainer.children[LapState.numOfLaps - LapState.min.index].classList.add(lapType);
       } else {
-          lapsContainer.children[LapState.numOfLaps - prevLapState.max.specialCaseIndex].classList.remove(lapType);
-          lapsContainer.children[LapState.numOfLaps - LapState.max.specialCaseIndex].classList.add(lapType);
+          lapsContainer.children[LapState.numOfLaps - prevLapState.max.index].classList.remove(lapType);
+          lapsContainer.children[LapState.numOfLaps - LapState.max.index].classList.add(lapType);
       }
   }
 }
