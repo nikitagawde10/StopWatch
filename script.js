@@ -1,4 +1,4 @@
-import getFormattedTime from './timeCalculator.js';
+import getFormattedTime from './formattedUtils.js';
 // import laps from './lapCounter.js';
 // import {changeButtonTextToStart , changeButtonTextToLap} from './timerFunctions.js'
 const startStopButton = document.getElementById('startStopButton');
@@ -16,8 +16,8 @@ const RESET_TEXT = 'Reset';
 const STOP_TEXT = 'Stop';
 const LAP_TEXT = 'Lap';
 let isCurrentSession = false;
-// define lapNumber
-const LapState = {
+
+let LapState = {
   numOfLaps: 0,
   min: undefined,
   max: undefined,
@@ -25,8 +25,8 @@ const LapState = {
 };
 startStopButton.onclick = () => {
   if (!isRunning) {
-    isCurrentSession = true; // isCurrentSession
-    isRunning = true; // isRunning
+    isCurrentSession = true;
+    isRunning = true;
     changeButtonTextToStop();
     lapResetButton.disabled = false;
     lapResetButton.classList.remove('disabled');
@@ -50,7 +50,7 @@ lapResetButton.onclick = () => {
   }
 };
 
-function changeButtonTextToStop() {
+let changeButtonTextToStop = () => {
   startStopButton.innerHTML = STOP_TEXT;
   lapResetButton.innerHTML = LAP_TEXT;
   primaryButton.classList.replace('green', 'red');
@@ -59,26 +59,26 @@ function changeButtonTextToStop() {
   }
 }
 
-function changeButtonTextToStart() {
+let changeButtonTextToStart = () => {
   startStopButton.innerHTML = START_TEXT;
   lapResetButton.innerHTML = RESET_TEXT;
   primaryButton.classList.replace('red', 'green');
 }
 
-function changeButtonTextToLap() {
+let changeButtonTextToLap = () => {
   lapResetButton.innerHTML = 'Lap';
   lapResetButton.disabled = true;
   lapResetButton.classList.add('disabled');
 }
 
-function getDriftTimeSinceLastStart(currentTime = Date.now()) { // calculate time difference
+let getDriftTimeSinceLastStart = (currentTime = Date.now()) => {
   if (!isRunning) {
     return 0;
   }
   return currentTime - startButtonClickedTime;
 }
 
-function getTime() {
+let getTime = () => {
   if (!startButtonClickedTime) {
     return 0;
   }
@@ -97,7 +97,7 @@ primaryButton.classList.add('green');
 lapResetButton.disabled = true;
 lapResetButton.classList.add('disabled');
 
-function laps() {
+let laps = () => {
   let lapList = document.createElement('li');
   let lapNumber = document.createElement('span');
   let lapTime = document.createElement('span');
@@ -105,28 +105,27 @@ function laps() {
   lapsContainer.prepend(lapList);
 
   let prevLapState = {
-      ...LapState
+    ...LapState
   };
 
   lapList.classList.add('lapItem');
   lapNumber.classList.add('lapNumber')
   lapTime.classList.add('lapTime')
-  lapList.append(lapNumber,lapTime);
-  // lapList.append(lapTime);
+  lapList.append(lapNumber, lapTime);
 
   let currentLapTimeStamp = Date.now();
   lapNumber.innerHTML = `Lap ${LapState.numOfLaps + 1}`;
   lapList.id = LapState.numOfLaps + 1;
   if (LapState.numOfLaps === 0) {
-      let lapDuration = currentLapTimeStamp - startButtonClickedTime;
-      LapState.numOfLaps += 1;
-      lapTime.innerHTML = getFormattedTime(lapDuration);
-      LapState.max = LapState.min = {
-          index: LapState.numOfLaps,
-          duration: lapDuration
-      };
-      LapState.lastLapTimeStamp = currentLapTimeStamp;
-      return;
+    let lapDuration = currentLapTimeStamp - startButtonClickedTime;
+    LapState.numOfLaps += 1;
+    lapTime.innerHTML = getFormattedTime(lapDuration);
+    LapState.max = LapState.min = {
+      index: LapState.numOfLaps,
+      duration: lapDuration
+    };
+    LapState.lastLapTimeStamp = currentLapTimeStamp;
+    return;
   }
 
   let lapDuration = currentLapTimeStamp - LapState.lastLapTimeStamp;
@@ -134,51 +133,51 @@ function laps() {
   LapState.numOfLaps += 1;
 
   if (startButtonClickedTime > LapState.lastLapTimeStamp) {
-      lapDuration -= (startButtonClickedTime - stopButtonClickedTime);
+    lapDuration -= (startButtonClickedTime - stopButtonClickedTime);
   }
   LapState.lastLapTimeStamp = currentLapTimeStamp;
   lapTime.innerHTML = getFormattedTime(lapDuration);
 
   if (lapDuration < LapState.min.duration) {
-      LapState.min = {
-          index: LapState.numOfLaps,
-          duration: lapDuration
-      };
-      lapType = "minLap";
+    LapState.min = {
+      index: LapState.numOfLaps,
+      duration: lapDuration
+    };
+    lapType = "minLap";
   } else if (lapDuration > LapState.max.duration) {
-      LapState.max = {
-          index: LapState.numOfLaps,
-          duration: lapDuration
-      };
-      lapType = "maxLap";
+    LapState.max = {
+      index: LapState.numOfLaps,
+      duration: lapDuration
+    };
+    lapType = "maxLap";
   }
   //only 2 laps in the list
   if (LapState.numOfLaps === 2) {
-      lapsContainer.children[LapState.numOfLaps - LapState.min.index].classList.add("minLap");
-      lapsContainer.children[LapState.numOfLaps - LapState.max.index].classList.add("maxLap");
-      return;
+    lapsContainer.children[LapState.numOfLaps - LapState.min.index].classList.add("minLap");
+    lapsContainer.children[LapState.numOfLaps - LapState.max.index].classList.add("maxLap");
+    return;
   }
 
   //changing color for minLap and maxLap - add css class minlap and maxLap
   if (lapType !== "") {
-      if (lapType === "minLap") {
-          lapsContainer.children[LapState.numOfLaps - prevLapState.min.index].classList.remove(lapType);
-          lapsContainer.children[LapState.numOfLaps - LapState.min.index].classList.add(lapType);
-      } else {
-          lapsContainer.children[LapState.numOfLaps - prevLapState.max.index].classList.remove(lapType);
-          lapsContainer.children[LapState.numOfLaps - LapState.max.index].classList.add(lapType);
-      }
+    if (lapType === "minLap") {
+      lapsContainer.children[LapState.numOfLaps - prevLapState.min.index].classList.remove(lapType);
+      lapsContainer.children[LapState.numOfLaps - LapState.min.index].classList.add(lapType);
+    } else {
+      lapsContainer.children[LapState.numOfLaps - prevLapState.max.index].classList.remove(lapType);
+      lapsContainer.children[LapState.numOfLaps - LapState.max.index].classList.add(lapType);
+    }
   }
 }
 
-function resetLapObject() {
+let resetLapObject = () => {
   LapState.numOfLaps = 0;
   LapState.min = undefined;
   LapState.max = undefined;
   LapState.lastLapTimeStamp = undefined;
 }
 
-function resetTimer() {
+let resetTimer = () => {
   displayTimerDiv.innerHTML = '00 : 00 . 00';
   startButtonClickedTime = 0;
   isRunning = false;
