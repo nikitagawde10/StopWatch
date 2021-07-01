@@ -71,11 +71,11 @@ let changeButtonTextToLap = () => {
   lapResetButton.classList.add('disabled');
 }
 
-let getDriftTimeSinceLastStart = (currentTime = Date.now()) => {
+  let getDriftTimeSinceLastStart = () => {
   if (!isRunning) {
     return 0;
   }
-  return currentTime - startButtonClickedTime;
+  return Date.now() - startButtonClickedTime;
 }
 
 let getTime = () => {
