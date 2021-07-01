@@ -62,6 +62,8 @@ export default function laps() {
         return;
     }
 
+
+    // Feedback: try to avoid nested if statements
     //chaging color for minLap and maxLap - add css class minlap and maxLap
     if (lapType !== "") {
         if (lapType === "minLap") {
