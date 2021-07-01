@@ -1,11 +1,18 @@
 :root{
-     --greenColor : #182E1C;
-    --redColor : #351614;
+    --greenBg : #182E1C;
+    --redBg : #351614;
     --buttonMargin : 10px;
     --lapBorderColor : #333;
     --textAlignVar : center;
-    --minLapColor : #42CC57;
-    --maxLapColor : #FF352C;
+    --green : #42CC57;
+    --red : #FF352C;
+    --smallFontSize : 15px;
+    --disabledColor : rgba(128, 128, 128, 0.171);
+    --white : white;
+    --largeFontSize : 56px;
+    --buttonColor : #353535;
+    --buttonText : #ccc;
+    --black : #0F0F0F;
 }
 
 * {
@@ -23,30 +30,29 @@ body {
     width: 300px;
     height: 600px;
     text-align: var(--textAlignVar);
-    background-color: black;
+    background-color: var(--black);
 }
-
 
 .buttonsDiv {
     display: flex;
     justify-content: space-between;
     height: 90px;
-    /* border: 2px solid gray; */
+    
 }
 
 .buttonStyle {
     cursor: pointer;
-    font-size: 16px;
-    border: 2px solid #353535;
-    background-color: #353535;
-    box-shadow: inset 0 0 0 2px #0F0F0F;
-    color: #ccc;
+    font-size: var(--smallFontSize);
+    border: 2px solid var(--buttonColor);
+    background-color: var(--buttonColor);
+    box-shadow: inset 0 0 0 2px var(--black);
+    color: var(--buttonText);
     width: 80px;
     height: fit-content;
     border-radius: 100%;
     text-align: var(--textAlignVar);
     line-height: 76px;
-    position: relative;
+   
     top: 0;
     left: 0;
 }
@@ -57,23 +63,23 @@ button:hover {
 }
 
 .green {
-    background-color: var(--greenColor);
-    border-color: var(--greenColor);
-    color:var(--minLapColor);
+    background-color: var(--greenBg);
+    border-color: var(--greenBg);
+    color:var(--green);
 }
 
 .red {
-    background-color: var(--redColor);
-    border-color: var(--redColor);
-    color:var(--maxLapColor);
+    background-color: var(--redBg);
+    border-color: var(--redBg);
+    color:var(--red);
 }
 
 .minLap {
-    color: var(--minLapColor);
+    color: var(--green);
 }
 
 .maxLap {
-    color: var(--maxLapColor);
+    color: var(--red);
 }
 
 #startStopButton {
@@ -85,9 +91,9 @@ button:hover {
 }
 
 #displayLapDiv {
-    color: white;
+    color: var(--white);
     text-align: var(--textAlignVar);
-    font-size: 15px;
+    font-size: var(--smallFontSize);
     /* border: 1px solid red; */
     width: 100%;
     height: 300px;
@@ -98,9 +104,9 @@ button:hover {
     margin: 0;
     padding-left: 0;
     border-top: 1px solid var(--lapBorderColor);
-    font-size: 16px;
+    font-size: var(--smallFontSize);
     overflow-y: auto;
-    height: -webkit-fill-available;
+    height: 100%;
 }
 
 .lapItem {
@@ -111,7 +117,7 @@ button:hover {
     display: flex;
     justify-content: space-between;
     height: 40px;
-    font-size: 20px; 
+    
 }
 
 .lapItem span {
@@ -120,16 +126,12 @@ button:hover {
 }
 
 .lapNumber {
-    /* color: white; */
-    font-size: 20px;
-    margin-right: 15px;
     margin-top: 6px;
 }
 
 .lapTime {
     display: inline-block;
     margin-left: 25px;
-    font-size: 20px;
     border-radius: 5px;
     margin: 5px;
 
@@ -138,11 +140,11 @@ button:hover {
 #displayTimerDiv {
     width: 100%;
     height: 200px;
-    color: white;
+    color: var(--white);
     padding-top: 60px;
-    font-size: 56px;
+    font-size: var(--largeFontSize);
 }
 
 .disabled{
-    background-color: rgba(128, 128, 128, 0.171);
+    background-color: var(--disabledColor);
 }
