@@ -1,35 +1,22 @@
 <html>
+  <head>
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<head>
-    <title> Stopwatch</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-    <!-- convention for classes is to use dashes instead of camelCase -->
-    <div class="stopWatchDiv">  
-        <div id="displayTimerDiv" style="
-        width: 100%;
-        height: 200px;
-        color: white;
-        font-size: 50px;
-    "> 
-    <!-- always try to avoid inlining styles -->
-    00 : 00 . 00
-            <!-- <h1 id="hi">00 : 00 . 00</h1> -->
-            <!-- always remove commented out code -->
-        </div>
-        <div class="buttonsDiv">
-            <button class=" buttonStyle " id="lapResetButton">Reset</button>
-            <button class="buttonStyle startbutton" id="startStopButton">Start</button>
-        </div>
-        <div id="displayLapDiv">
-            <ul class="laps">
-
-            </ul>
-        </div>
+  <body>
+    <div class="stopWatchDiv">
+      <div id="displayTimerDiv">00 : 00 . 00</div>
+      <div class="buttonsDiv">
+        <button class="buttonStyle" id="lapResetButton">Reset</button>
+        <button class="buttonStyle startbutton" id="startStopButton">
+          Start
+        </button>
+      </div>
+      <div id="displayLapDiv">
+        <ul class="laps"></ul>
+      </div>
     </div>
     <script type="module" src="./script.js"></script>
-</body>
-
+  </body>
 </html>
