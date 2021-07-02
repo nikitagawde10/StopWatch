@@ -1,31 +1,37 @@
 import getFormattedTime from './formattedUtils.js'
+
 const startStopButton = document.getElementById('startStopButton')
 const lapResetButton = document.getElementById('lapResetButton')
 const lapsContainer = document.getElementsByClassName('laps')[0]
 const primaryButton = document.getElementsByClassName('startbutton')[0]
 const displayTimerDiv = document.getElementById('displayTimerDiv')
+
 const START_TEXT = 'Start'
 const RESET_TEXT = 'Reset'
 const STOP_TEXT = 'Stop'
 const LAP_TEXT = 'Lap'
+
 let isRunning = false
 let totalTime = 0
 let timeHandler = null
 let startTime = 0
 let stopTime = 0
 let isCurrentSession = false
-let LapState = {
+let lapList 
+let lapNumber
+let lapTime
+
+const lapState = { // const lapState
   numOfLaps: 0,
   min: undefined,
   max: undefined,
   lastLapTimeStamp: undefined, // store previous lap
 }
-let lapList 
-let lapNumber
-let lapTime
+
+
 primaryButton.classList.add('green')
 lapResetButton.disabled = true
-lapResetButton.classList.add('disabled')
+// lapResetButton.classList.add('disabled')
 
 startStopButton.onclick = () => {
   if (!isRunning) {
@@ -33,7 +39,7 @@ startStopButton.onclick = () => {
     isRunning = true
     changeButtonTextToStop()
     lapResetButton.disabled = false
-    lapResetButton.classList.remove('disabled')
+    // lapResetButton.classList.remove('disabled') use pseudo selector in css
     startTime = Date.now()
     startTimerLoop()
   } else {
@@ -54,13 +60,13 @@ lapResetButton.onclick = () => {
   }
 }
 
-let changeButtonTextToStop = () => {
+let changeButtonTextToStop = () => { //make consts
   startStopButton.innerHTML = STOP_TEXT
   lapResetButton.innerHTML = LAP_TEXT
   primaryButton.classList.replace('green', 'red')
-  if (lapResetButton.classList.contains('disabled')) {
-    lapResetButton.classList.remove('disabled')
-  }
+  // if (lapResetButton.classList.contains('disabled')) { if disabled
+    // lapResetButton.classList.remove('disabled')
+  // }
 }
 
 let changeButtonTextToStart = () => {
@@ -72,7 +78,7 @@ let changeButtonTextToStart = () => {
 let changeButtonTextToLap = () => {
   lapResetButton.innerHTML = 'Lap'
   lapResetButton.disabled = true
-  lapResetButton.classList.add('disabled')
+  // lapResetButton.classList.add('disabled')
 }
 
 let getDriftTimeSinceLastStart = () => {
@@ -110,70 +116,73 @@ let createLapState = () => {
 }
 
 let createlaps = () => {
-  let lapState = createLapState();
+  createLapState(); //newLapState
   let prevLapState = {
-    ...LapState
+    ...lapState //lapState
   }
 
   let currentLapTimeStamp = Date.now()
-  lapNumber.innerHTML = `Lap ${LapState.numOfLaps + 1}`
-  if (LapState.numOfLaps === 0) {
+  lapNumber.innerHTML = `Lap ${lapState.numOfLaps + 1}`
+  if (lapState.numOfLaps === 0) {
     let lapDuration = currentLapTimeStamp - startTime
-    LapState.numOfLaps += 1
+    lapState.numOfLaps += 1
     lapTime.innerHTML = getFormattedTime(lapDuration)
-    LapState.max = LapState.min = {
-      index: LapState.numOfLaps,
+    lapState.max = lapState.min = {
+      index: lapState.numOfLaps,
       duration: lapDuration
     }
-    LapState.lastLapTimeStamp = currentLapTimeStamp
+    lapState.lastLapTimeStamp = currentLapTimeStamp
     return
   }
 
-  let lapDuration = currentLapTimeStamp - LapState.lastLapTimeStamp
+  let lapDuration = currentLapTimeStamp - lapState.lastLapTimeStamp
   let lapType = ""
-  LapState.numOfLaps += 1
+  lapState.numOfLaps += 1
 
-  if (startTime > LapState.lastLapTimeStamp) {
+  if (startTime > lapState.lastLapTimeStamp) {
     lapDuration -= (startTime - stopTime)
   }
-  LapState.lastLapTimeStamp = currentLapTimeStamp
+  lapState.lastLapTimeStamp = currentLapTimeStamp
   lapTime.innerHTML = getFormattedTime(lapDuration)
 
-  if (lapDuration < LapState.min.duration) {
-    LapState.min = {
-      index: LapState.numOfLaps,
+  if (lapDuration < lapState.min.duration) {
+    lapState.min = {
+      index: lapState.numOfLaps,
       duration: lapDuration
     }
     lapType = "minLap"
-  } else if (lapDuration > LapState.max.duration) {
-    LapState.max = {
-      index: LapState.numOfLaps,
+  } else if (lapDuration > lapState.max.duration) {
+    lapState.max = {
+      index: lapState.numOfLaps,
       duration: lapDuration
     }
     lapType = "maxLap"
   }
+  let minLapIndex = lapState.min.index 
+  let maxLapIndex = lapState.max.index
+
   //only 2 laps in the list
-  // if (LapState.numOfLaps === 2) {
-  //   lapsContainer.children[LapState.numOfLaps - LapState.min.index].classList.add("minLap")
-  //   lapsContainer.children[LapState.numOfLaps - LapState.max.index].classList.add("maxLap")
-  //   return
-  // }
+  if (lapState.numOfLaps === 2) {
+    lapsContainer.children[lapState.numOfLaps - minLapIndex].classList.add("minLap")
+    lapsContainer.children[lapState.numOfLaps - maxLapIndex].classList.add("maxLap")
+    return
+  }
 
   //changing color for minLap and maxLap - add css class minlap and maxLap
     if (lapType === "minLap") {
-      lapsContainer.children[LapState.numOfLaps - prevLapState.min.index].classList.remove(lapType)
-      lapsContainer.children[LapState.numOfLaps - LapState.min.index].classList.add(lapType)
+      lapsContainer.children[lapState.numOfLaps - prevLapState.min.index].classList.remove(lapType)
+      lapsContainer.children[lapState.numOfLaps - lapState.min.index].classList.add(lapType)
     } else if(lapType === "maxLap"){
-      lapsContainer.children[LapState.numOfLaps - prevLapState.max.index].classList.remove(lapType)
-      lapsContainer.children[LapState.numOfLaps - LapState.max.index].classList.add(lapType)
+      lapsContainer.children[lapState.numOfLaps - prevLapState.max.index].classList.remove(lapType)
+      lapsContainer.children[lapState.numOfLaps - lapState.max.index].classList.add(lapType)
     }
 }
 
 let resetLapObject = () => {
-  LapState.numOfLaps = 0
-  LapState.min = undefined
-  LapState.max = undefined
-  LapState.lastLapTimeStamp = undefined
+  lapState.numOfLaps = 0
+  lapState.min = undefined
+  lapState.max = undefined
+  lapState.lastLapTimeStamp = undefined
 }
 
 let resetTimer = () => {
@@ -181,7 +190,7 @@ let resetTimer = () => {
   resetView()
   isRunning = false
   totalTime = 0
-  resetLapObject(LapState)
+  resetLapObject(lapState)
   changeButtonTextToLap()
   changeButtonTextToStart()
   
