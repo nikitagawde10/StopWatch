@@ -1,22 +1,22 @@
-:root{
-    --greenBg : #182E1C;
-    --redBg : #351614;
-    --buttonMargin : 10px;
-    --lapBorderColor : #333;
-    --textAlignVar : center;
-    --green : #42CC57;
-    --red : #FF352C;
-    --smallFontSize : 15px;
-    --disabledColor : rgba(128, 128, 128, 0.171);
-    --white : white;
-    --largeFontSize : 56px;
-    --buttonColor : #353535;
-    --buttonText : #ccc;
-    --black : #0F0F0F;
+:root {
+  --greenBg: #182e1c;
+  --redBg: #351614;
+  --buttonMargin: 10px;
+  --lapBorderColor: #333;
+  --textAlignVar: center;
+  --green: #42cc57;
+  --red: #ff352c;
+  --smallFontSize: 15px;
+  --disabledColor: rgba(128, 128, 128, 0.171);
+  --white: white;
+  --largeFontSize: 56px;
+  --buttonColor: #353535;
+  --buttonText: #ccc;
+  --black: #0f0f0f;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 @font-face {
@@ -24,8 +24,8 @@
     src: url("./Fonts/MyFont-UltraLight.otf") format("truetype");
   }
 body {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .card {
@@ -60,94 +60,91 @@ body {
 }
 
 button:hover {
-    cursor: pointer;
-    
+  cursor: pointer;
 }
 [button__body]:disabled{
     background-color: var(--disabledColor);
 }
 
 .green {
-    background-color: var(--greenBg);
-    border-color: var(--greenBg);
-    color:var(--green);
+  background-color: var(--greenBg);
+  border-color: var(--greenBg);
+  color: var(--green);
 }
 
 .red {
-    background-color: var(--redBg);
-    border-color: var(--redBg);
-    color:var(--red);
+  background-color: var(--redBg);
+  border-color: var(--redBg);
+  color: var(--red);
 }
 
 .minLap {
-    color: var(--green);
+  color: var(--green);
 }
 
 .maxLap {
-    color: var(--red);
+  color: var(--red);
 }
 
 #startStopButton {
-    margin-right: var(--buttonMargin);
+  margin-right: var(--buttonMargin);
 }
 
 #lapResetButton {
-    margin-left: var(--buttonMargin);
+  margin-left: var(--buttonMargin);
 }
 
 #displayLapDiv {
-    color: var(--white);
-    text-align: var(--textAlignVar);
-    font-size: var(--smallFontSize);
-    /* border: 1px solid red; */
-    width: 100%;
-    height: 300px;
+  color: var(--white);
+  text-align: var(--textAlignVar);
+  font-size: var(--smallFontSize);
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 300px;
 }
 
 .laps {
-    list-style: none;
-    margin: 0;
-    padding-left: 0;
-    border-top: 1px solid var(--lapBorderColor);
-    font-size: var(--smallFontSize);
-    overflow-y: auto;
-    height: 100%;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  border-top: 1px solid var(--lapBorderColor);
+  font-size: var(--smallFontSize);
+  overflow-y: auto;
+  height: 100%;
 }
 
 .lapItem {
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid var(--lapBorderColor);
-    margin: 4px;
-    display: flex;
-    justify-content: space-between;
-    height: 40px;
-    
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--lapBorderColor);
+  margin: 4px;
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
 }
 
 .lapItem span {
-    margin-left: 5px;
-    margin-right: 15px;
+  margin-left: 5px;
+  margin-right: 15px;
 }
 
 .lapNumber {
-    margin-top: 6px;
+  margin-top: 6px;
 }
 
 .lapTime {
-    display: inline-block;
-    margin-left: 25px;
-    border-radius: 5px;
-    margin: 5px;
-
+  display: inline-block;
+  margin-left: 25px;
+  border-radius: 5px;
+  margin: 5px;
 }
 
 #displayTimerDiv {
-    width: 100%;
-    height: 200px;
-    color: var(--white);
-    padding-top: 60px;
-    font-size: var(--largeFontSize);
+  width: 100%;
+  height: 200px;
+  color: var(--white);
+  padding-top: 60px;
+  font-size: var(--largeFontSize);
 }
 
 .disabled{
