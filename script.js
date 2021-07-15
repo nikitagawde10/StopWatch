@@ -3,7 +3,7 @@ import getFormattedTime from './formattedUtils.js'
 const startStopButton = document.getElementById('startStopButton')
 const lapResetButton = document.getElementById('lapResetButton')
 const lapsContainer = document.getElementsByClassName('laps')[0]
-const primaryButton = document.getElementsByClassName('startbutton')[0]
+const primaryButton = document.getElementsByClassName('primary__button')[0]
 const displayTimerDiv = document.getElementById('displayTimerDiv')
 
 const START_TEXT = 'Start'
@@ -21,7 +21,7 @@ let lapList
 let lapNumber
 let lapTime
 
-const lapState = { // const lapState
+const lapState = {
   numOfLaps: 0,
   min: undefined,
   max: undefined,
@@ -31,7 +31,7 @@ const lapState = { // const lapState
 
 primaryButton.classList.add('green')
 lapResetButton.disabled = true
-// lapResetButton.classList.add('disabled')
+lapResetButton.classList.add('disabled')
 
 startStopButton.onclick = () => {
   if (!isRunning) {
@@ -39,7 +39,7 @@ startStopButton.onclick = () => {
     isRunning = true
     changeButtonTextToStop()
     lapResetButton.disabled = false
-    // lapResetButton.classList.remove('disabled') use pseudo selector in css
+    lapResetButton.classList.remove('disabled') //use pseudo selector in css
     startTime = Date.now()
     startTimerLoop()
   } else {
@@ -64,9 +64,9 @@ let changeButtonTextToStop = () => { //make consts
   startStopButton.innerHTML = STOP_TEXT
   lapResetButton.innerHTML = LAP_TEXT
   primaryButton.classList.replace('green', 'red')
-  // if (lapResetButton.classList.contains('disabled')) { if disabled
-    // lapResetButton.classList.remove('disabled')
-  // }
+  if (lapResetButton.classList.contains('disabled')) { //if disabled
+    lapResetButton.classList.remove('disabled')
+  }
 }
 
 let changeButtonTextToStart = () => {
@@ -78,7 +78,7 @@ let changeButtonTextToStart = () => {
 let changeButtonTextToLap = () => {
   lapResetButton.innerHTML = 'Lap'
   lapResetButton.disabled = true
-  // lapResetButton.classList.add('disabled')
+  lapResetButton.classList.add('disabled')
 }
 
 let getDriftTimeSinceLastStart = () => {
@@ -160,21 +160,22 @@ let createlaps = () => {
   }
   let minLapIndex = lapState.min.index 
   let maxLapIndex = lapState.max.index
+  let currentLapNumber = lapState.numOfLaps
 
   //only 2 laps in the list
   if (lapState.numOfLaps === 2) {
-    lapsContainer.children[lapState.numOfLaps - minLapIndex].classList.add("minLap")
-    lapsContainer.children[lapState.numOfLaps - maxLapIndex].classList.add("maxLap")
+    lapsContainer.children[currentLapNumber - minLapIndex].classList.add("minLap")
+    lapsContainer.children[currentLapNumber - maxLapIndex].classList.add("maxLap")
     return
   }
 
   //changing color for minLap and maxLap - add css class minlap and maxLap
     if (lapType === "minLap") {
-      lapsContainer.children[lapState.numOfLaps - prevLapState.min.index].classList.remove(lapType)
-      lapsContainer.children[lapState.numOfLaps - lapState.min.index].classList.add(lapType)
+      lapsContainer.children[currentLapNumber - prevLapState.min.index].classList.remove(lapType)
+      lapsContainer.children[currentLapNumber - minLapIndex].classList.add(lapType)
     } else if(lapType === "maxLap"){
-      lapsContainer.children[lapState.numOfLaps - prevLapState.max.index].classList.remove(lapType)
-      lapsContainer.children[lapState.numOfLaps - lapState.max.index].classList.add(lapType)
+      lapsContainer.children[currentLapNumber - prevLapState.max.index].classList.remove(lapType)
+      lapsContainer.children[currentLapNumber - maxLapIndex].classList.add(lapType)
     }
 }
 
@@ -193,7 +194,6 @@ let resetTimer = () => {
   resetLapObject(lapState)
   changeButtonTextToLap()
   changeButtonTextToStart()
-  
 }
 
 let resetView = () => {
