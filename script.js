@@ -25,7 +25,7 @@ const lapState = {
   numOfLaps: 0,
   min: undefined,
   max: undefined,
-  lastLapTimeStamp: undefined, // store previous lap
+  lastLapTimeStamp: undefined, 
 }
 
 
@@ -39,7 +39,7 @@ startStopButton.onclick = () => {
     isRunning = true
     changeButtonTextToStop()
     lapResetButton.disabled = false
-    lapResetButton.classList.remove('disabled') //use pseudo selector in css
+    lapResetButton.classList.remove('disabled') 
     startTime = Date.now()
     startTimerLoop()
   } else {
@@ -60,22 +60,22 @@ lapResetButton.onclick = () => {
   }
 }
 
-let changeButtonTextToStop = () => { //make consts
+const changeButtonTextToStop = () => { 
   startStopButton.innerHTML = STOP_TEXT
   lapResetButton.innerHTML = LAP_TEXT
   primaryButton.classList.replace('green', 'red')
-  if (lapResetButton.classList.contains('disabled')) { //if disabled
+  if (lapResetButton.classList.contains('disabled')) { 
     lapResetButton.classList.remove('disabled')
   }
 }
 
-let changeButtonTextToStart = () => {
+const changeButtonTextToStart = () => {
   startStopButton.innerHTML = START_TEXT
   lapResetButton.innerHTML = RESET_TEXT
   primaryButton.classList.replace('red', 'green')
 }
 
-let changeButtonTextToLap = () => {
+const changeButtonTextToLap = () => {
   lapResetButton.innerHTML = 'Lap'
   lapResetButton.disabled = true
   lapResetButton.classList.add('disabled')
@@ -116,9 +116,9 @@ let createLapState = () => {
 }
 
 let createlaps = () => {
-  createLapState(); //newLapState
+  createLapState(); 
   let prevLapState = {
-    ...lapState //lapState
+    ...lapState 
   }
 
   let currentLapTimeStamp = Date.now()
